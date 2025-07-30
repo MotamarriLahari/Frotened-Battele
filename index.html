@@ -3,196 +3,594 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hero Section</title>
+  <title>Ocean Explorer - Discover Marine Life</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #003366, #001f3f);
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #001f3f 0%, #003d7a 25%, #0074cc 50%, #4db8ff 75%, #87ceeb 100%);
       color: white;
-      transition: background 0.3s, color 0.3s;
+      transition: all 0.3s ease;
+      overflow-x: hidden;
     }
 
     body.light {
-      background: linear-gradient(to bottom, #f2f2f2, #d9d9d9);
-      color: #111;
+      background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 25%, #80bfff 50%, #4da6ff 75%, #1a8cff 100%);
+      color: #003366;
+    }
+
+    /* Navigation */
+    .nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 20px;
+      background: rgba(0, 31, 63, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body.light .nav-header {
+      background: rgba(255, 255, 255, 0.9);
+      color: #003366;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4db8ff;
+    }
+
+    body.light .logo {
+      color: #0074cc;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    body.light .nav-links a {
+      color: #003366;
+    }
+
+    .nav-links a:hover {
+      color: #4db8ff;
     }
 
     .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
       background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 6px;
+      border: 2px solid #4db8ff;
+      color: #4db8ff;
+      padding: 8px 16px;
+      border-radius: 25px;
       cursor: pointer;
-      z-index: 10;
+      transition: all 0.3s;
     }
 
-    body.light .theme-toggle {
-      color: #111;
-      border-color: #111;
+    .theme-toggle:hover {
+      background: #4db8ff;
+      color: #001f3f;
     }
 
+    /* Hero Section */
     .hero-section {
       position: relative;
-      padding: 100px 20px;
+      padding: 120px 20px 80px;
       text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       overflow: hidden;
     }
 
-    .ratings {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
+    .wave-animation {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" fill="rgba(77,184,255,0.3)"></path></svg>') repeat-x;
+      animation: wave 10s ease-in-out infinite;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-50px); }
     }
 
     .hero-content h1 {
-      font-size: 2.8rem;
+      font-size: 3.5rem;
       font-weight: 800;
-      line-height: 1.3;
-      margin-bottom: 1rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+    .hero-content .subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+
+    .marine-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      min-width: 150px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #4db8ff;
+      display: block;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
 
     .cta-btn {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      background: #c7ebf9;
-      color: #001f3f;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      background: linear-gradient(45deg, #4db8ff, #0074cc);
+      color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 30px;
       cursor: pointer;
-      margin-bottom: 1rem;
-    }
-
-    .secondary-link {
-      font-size: 0.9rem;
-      text-decoration: underline;
-      cursor: pointer;
-      opacity: 0.85;
-    }
-
-    .chart {
-      position: absolute;
-      opacity: 0.15;
-      filter: blur(8px);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .chart1 { top: 20%; left: 5%; width: 120px; }
-    .chart2 { top: 30%; right: 10%; width: 160px; }
-    .chart3 { bottom: 10%; left: 50%; transform: translateX(-50%); width: 200px; }
-
-    .interactive-word {
-      position: relative;
+      transition: all 0.3s;
+      text-decoration: none;
       display: inline-block;
     }
 
-    .trigger-hover {
-      font-weight: bold;
-      cursor: pointer;
-      position: relative;
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(77, 184, 255, 0.4);
     }
 
-    .floating-ui {
+    .cta-btn.secondary {
+      background: transparent;
+      border: 2px solid #4db8ff;
+      color: #4db8ff;
+    }
+
+    body.light .cta-btn.secondary {
+      color: #0074cc;
+      border-color: #0074cc;
+    }
+
+    /* Interactive Marine Elements */
+    .marine-element {
       position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      z-index: 3;
-    }
-
-    .floating-ui img {
-      width: 160px;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-      filter: blur(4px);
       opacity: 0.7;
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
     }
 
-    .interactive-word:hover .floating-ui {
-      opacity: 1;
+    .marine-element.fish1 {
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
     }
 
-    .popup-1 { top: -60px; left: -180px; }
-    .popup-2 { top: -100px; right: -180px; }
-    .popup-3 { bottom: -100px; left: 20%; }
-    .popup-4 { top: -60px; left: -150px; }
-    .popup-5 { top: -100px; right: -150px; }
-    .popup-6 { bottom: -100px; left: 30%; }
+    .marine-element.fish2 {
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
 
+    .marine-element.fish3 {
+      top: 40%;
+      left: 80%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    /* Content Sections */
+    .content-section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: #4db8ff;
+    }
+
+    body.light .section-title {
+      color: #0074cc;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #4db8ff;
+    }
+
+    body.light .feature-card h3 {
+      color: #0074cc;
+    }
+
+    /* Marine Life Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      height: 200px;
+      border-radius: 15px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, #4db8ff, #0074cc);
+      opacity: 0.8;
+    }
+
+    .gallery-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      color: white;
+      z-index: 2;
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(0, 31, 63, 0.9);
+      padding: 3rem 20px 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    body.light .footer {
+      background: rgba(0, 51, 102, 0.9);
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
       .hero-content h1 {
-        font-size: 1.8rem;
-        line-height: 1.4;
+        font-size: 2.5rem;
       }
-      .hero-content p {
-        font-size: 1rem;
+
+      .marine-stats {
+        gap: 1rem;
       }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
       .cta-btn {
         width: 100%;
-        font-size: 1rem;
+        max-width: 300px;
       }
-      .chart, .floating-ui {
+
+      .marine-element {
         display: none;
       }
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
-  <section class="hero-section">
-    <div class="ratings">
-      <span>★ 4.8 rating on <u>Capterra</u></span>
-      <span>★ 4.8 rating on <u>G2</u></span>
-      <span>★ 350+ reviews on <u>Xero</u></span>
-      <span>★ 550+ reviews on <u>QuickBooks</u></span>
-    </div>
+  <!-- Navigation -->
+  <nav class="nav-header">
+    <div class="logo">🌊 Ocean Explorer</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#marine-life">Marine Life</a></li>
+      <li><a href="#conservation">Conservation</a></li>
+      <li><a href="#explore">Explore</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+  </nav>
 
-    <div class="hero-content">
-      <h1>
-        Create 
-        <span class="interactive-word">
-          <span class="trigger-hover">reports</span>
-          <div class="floating-ui popup popup-1"><img src="https://i.imgur.com/LzcknBA.png" /></div>
-          <div class="floating-ui popup popup-2"><img src="https://i.imgur.com/fGIEhHZ.png" /></div>
-          <div class="floating-ui popup popup-3"><img src="https://i.imgur.com/0aJ6plT.png" /></div>
-        </span>,
-        forecasts,<br />
-        <span class="interactive-word">
-          <span class="trigger-hover">dashboards</span>
-          <div class="floating-ui popup popup-4"><img src="https://i.imgur.com/fGIEhHZ.png" /></div>
-          <div class="floating-ui popup popup-5"><img src="https://i.imgur.com/0aJ6plT.png" /></div>
-          <div class="floating-ui popup popup-6"><img src="https://i.imgur.com/LzcknBA.png" /></div>
-        </span>
-        & consolidations
-      </h1>
-
-      <p>✨ Now with AI-insights</p>
-      <button class="cta-btn">Start 14-day free trial ›</button>
-      <div class="secondary-link">📄 See what we do</div>
-    </div>
-
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="marine-element fish1">🐠</div>
+    <div class="marine-element fish2">🐟</div>
+    <div class="marine-element fish3">🦈</div>
     
+    <div class="hero-content">
+      <h1>Discover the Ocean's<br>Hidden Wonders</h1>
+      <p class="subtitle">
+        Explore marine biodiversity, support ocean conservation, and dive into the world's 
+        most fascinating underwater ecosystems with cutting-edge research and interactive experiences.
+      </p>
+      
+      <div class="marine-stats">
+        <div class="stat-item">
+          <span class="stat-number">71%</span>
+          <span>Ocean Coverage</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">230,000+</span>
+          <span>Marine Species</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">95%</span>
+          <span>Unexplored</span>
+        </div>
+      </div>
+      
+      <div class="cta-buttons">
+        <a href="#explore" class="cta-btn">Start Exploring 🌊</a>
+        <a href="#marine-life" class="cta-btn secondary">Marine Life Guide</a>
+      </div>
+    </div>
+    
+    <div class="wave-animation"></div>
   </section>
+
+  <!-- Marine Life Section -->
+  <section class="content-section" id="marine-life">
+    <h2 class="section-title">🐠 Marine Life Diversity</h2>
+    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+      From microscopic plankton to massive blue whales, discover the incredible diversity of life beneath the waves.
+    </p>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🐋</span>
+        <h3>Marine Mammals</h3>
+        <p>Explore whales, dolphins, seals, and other intelligent marine mammals that have adapted to life in the ocean.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🐠</span>
+        <h3>Tropical Fish</h3>
+        <p>Discover colorful reef fish, their unique behaviors, and the vibrant coral ecosystems they call home.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🦑</span>
+        <h3>Deep Sea Creatures</h3>
+        <p>Journey to the ocean's depths and meet the mysterious creatures that thrive in extreme conditions.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🪸</span>
+        <h3>Coral Reefs</h3>
+        <p>Learn about these underwater rainforests and the thousands of species that depend on coral ecosystems.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🦈</span>
+        <h3>Sharks & Rays</h3>
+        <p>Understand these apex predators and their crucial role in maintaining healthy ocean ecosystems.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🐙</span>
+        <h3>Cephalopods</h3>
+        <p>Marvel at the intelligence of octopuses, squid, and cuttlefish - the ocean's master problem solvers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marine Habitats Gallery -->
+  <section class="content-section" id="explore">
+    <h2 class="section-title">🌊 Marine Habitats</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Coral Reefs</h3>
+          <p>Biodiversity hotspots of the ocean</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Deep Ocean</h3>
+          <p>Mysterious abyssal plains and trenches</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Kelp Forests</h3>
+          <p>Underwater forests teeming with life</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Open Ocean</h3>
+          <p>Vast pelagic waters and migrations</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Mangroves</h3>
+          <p>Coastal nurseries and storm protection</p>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-content">
+          <h3>Polar Seas</h3>
+          <p>Arctic and Antarctic marine ecosystems</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conservation Section -->
+  <section class="content-section" id="conservation">
+    <h2 class="section-title">🌍 Ocean Conservation</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="feature-icon">♻️</span>
+        <h3>Plastic Pollution</h3>
+        <p>Learn about the impact of plastic waste on marine life and how you can help reduce ocean pollution.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🌡️</span>
+        <h3>Climate Change</h3>
+        <p>Understand how rising temperatures and ocean acidification affect marine ecosystems worldwide.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🎣</span>
+        <h3>Sustainable Fishing</h3>
+        <p>Discover sustainable fishing practices that protect marine populations while supporting coastal communities.</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🏞️</span>
+        <h3>Marine Protected Areas</h3>
+        <p>Explore how marine reserves and protected areas help preserve critical ocean habitats and species.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Ocean Explorer. Dedicated to marine conservation and education.</p>
+    <p style="margin-top: 1rem; opacity: 0.8;">🌊 Together, we can protect our oceans for future generations 🌊</p>
+  </footer>
 
   <script>
     function toggleTheme() {
       document.body.classList.toggle('light');
+      
+      // Save theme preference
+      const isLight = document.body.classList.contains('light');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
     }
+
+    // Load saved theme
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add parallax effect to marine elements
+    window.addEventListener('scroll', function() {
+      const scrolled = window.pageYOffset;
+      const marineElements = document.querySelectorAll('.marine-element');
+      
+      marineElements.forEach((element, index) => {
+        const speed = 0.5 + (index * 0.1);
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Add interactive hover effects to gallery items
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05) rotateY(5deg)';
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1) rotateY(0deg)';
+      });
+    });
   </script>
 </body>
 </html>
